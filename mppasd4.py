@@ -68,61 +68,48 @@ class DatabaseReview:
                 temp = temp.next
 
     def cari_review_by_judul(self, judul):
-        # Mendapatkan panjang linked list
         length = 0
         temp = self.head
         while temp:
             length += 1
             temp = temp.next
-
-        # Inisialisasi variabel Fibonacci
+            
         fibM_minus_2 = 0
         fibM_minus_1 = 1
         fibM = fibM_minus_1 + fibM_minus_2
 
-        # Temukan terdekat Fibonacci Number yang lebih besar atau sama dengan panjang linked list
         while fibM < length:
             fibM_minus_2 = fibM_minus_1
             fibM_minus_1 = fibM
             fibM = fibM_minus_1 + fibM_minus_2
 
-        # Penanda untuk mengingat posisi saat ini dalam pencarian Fibonacci
         offset = -1
 
-        # Mulai pencarian
         while fibM > 1:
-            # Tentukan indeks untuk elemen yang akan diperiksa berdasarkan Fibonacci Number
             i = min(offset + fibM_minus_2, length - 1)
 
-            # Dapatkan review pada indeks i
             current_review = self.get_review_at_index(i)
 
-            # Cek jika judul yang dicari ada di review saat ini
             if current_review.data.judul.lower() == judul.lower():
                 return current_review.data
             elif current_review.data.judul.lower() < judul.lower():
-                # Geser indeks ke kanan, update posisi dan update Fibonacci
                 fibM = fibM_minus_1
                 fibM_minus_1 = fibM_minus_2
                 fibM_minus_2 = fibM - fibM_minus_1
                 offset = i
             else:
-                # Geser indeks ke kiri, update Fibonacci
                 fibM = fibM_minus_2
                 fibM_minus_1 = fibM_minus_1 - fibM_minus_2
                 fibM_minus_2 = fibM - fibM_minus_1
 
-        # Cek untuk elemen terakhir
         if fibM_minus_1 and offset < (length - 1):
             current_review = self.get_review_at_index(offset + 1)
             if current_review.data.judul.lower() == judul.lower():
                 return current_review.data
 
-        # Jika review tidak ditemukan
         return None
 
     def get_review_at_index(self, index):
-        # Mendapatkan review pada indeks tertentu
         current_index = 0
         current_node = self.head
         while current_node and current_index < index:
@@ -131,57 +118,45 @@ class DatabaseReview:
         return current_node
     
     def cari_review_by_genre(self, genre):
-        # Mendapatkan panjang linked list
         length = 0
         temp = self.head
         while temp:
             length += 1
             temp = temp.next
 
-        # Inisialisasi variabel Fibonacci
         fibM_minus_2 = 0
         fibM_minus_1 = 1
         fibM = fibM_minus_1 + fibM_minus_2
 
-        # Temukan terdekat Fibonacci Number yang lebih besar atau sama dengan panjang linked list
         while fibM < length:
             fibM_minus_2 = fibM_minus_1
             fibM_minus_1 = fibM
             fibM = fibM_minus_1 + fibM_minus_2
 
-        # Penanda untuk mengingat posisi saat ini dalam pencarian Fibonacci
         offset = -1
 
-        # Mulai pencarian
         while fibM > 1:
-            # Tentukan indeks untuk elemen yang akan diperiksa berdasarkan Fibonacci Number
             i = min(offset + fibM_minus_2, length - 1)
 
-            # Dapatkan review pada indeks i
             current_review = self.get_review_at_index(i)
 
-            # Cek jika genre yang dicari ada di review saat ini
             if current_review.data.genre.lower() == genre.lower():
                 return current_review.data
             elif current_review.data.genre.lower() < genre.lower():
-                # Geser indeks ke kanan, update posisi dan update Fibonacci
                 fibM = fibM_minus_1
                 fibM_minus_1 = fibM_minus_2
                 fibM_minus_2 = fibM - fibM_minus_1
                 offset = i
             else:
-                # Geser indeks ke kiri, update Fibonacci
                 fibM = fibM_minus_2
                 fibM_minus_1 = fibM_minus_1 - fibM_minus_2
                 fibM_minus_2 = fibM - fibM_minus_1
 
-        # Cek untuk elemen terakhir
         if fibM_minus_1 and offset < (length - 1):
             current_review = self.get_review_at_index(offset + 1)
             if current_review.data.genre.lower() == genre.lower():
                 return current_review.data
 
-        # Jika review tidak ditemukan
         return None
 
     def update_review(self, judul, review_baru):
@@ -232,12 +207,10 @@ class DatabaseReview:
         if len(array) <= 1:
             return array
 
-        # Splitting the array into halves
         mid = len(array) // 2
         left_half = array[:mid]
         right_half = array[mid:]
 
-        # Recursive calls to merge_sort for both halves
         left_half = self.merge_sort(left_half, key, reverse)
         right_half = self.merge_sort(right_half, key, reverse)
 
@@ -388,7 +361,7 @@ while True:
             print(f"Tidak ada review untuk genre '{genre}'.")
 
     elif pilihan_kriteria == 0:
-        pass  # Kembali ke menu utama
+        pass 
 
     elif pilihan == 4:
         judul = input("Masukkan judul film yang ingin diupdate: ")
